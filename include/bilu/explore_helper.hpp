@@ -2,10 +2,12 @@
 #define BILU_EXPLORE_HELPER_HPP
 
 #include <array>
+#include <cstdint>
 #include <string>
 
-namespace bilu {
+constexpr uint8_t GRID_SIZE = 20;
 
+namespace bilu {
 /**
  * @brief Representa as direções possíveis para movimentação.
  */
@@ -45,6 +47,11 @@ std::string direction_to_string(Direction direction);
  * @return Próxima direção alternativa.
  */
 Direction get_next_direction(const std::array<bool, 4>& blocked_directions);
+
+bilu::Direction calculate_next_direction(
+    const std::array<int8_t, 2>& robot_pos, const std::array<std::array<int, GRID_SIZE>, GRID_SIZE>& flood_map,
+    const std::array<bool, 4>& blocked_directions
+);
 
 }  // namespace bilu
 
