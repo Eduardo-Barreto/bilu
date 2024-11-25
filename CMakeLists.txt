@@ -44,7 +44,8 @@ target_include_directories(${PROJECT_NAME}_lib PUBLIC
 )
 
 add_executable(bilu
-    src/bilu_node.cpp
+    # src/bilu_node.cpp
+    src/main.cpp
 )
 
 ament_target_dependencies(bilu ${DEPENDENCIES})
