@@ -7,8 +7,8 @@ Direction calculate_preferred_direction(
     const std::array<int8_t, 2>& robot_pos, const std::array<int8_t, 2>& target_pos,
     const std::array<bool, 4>& blocked_directions
 ) {
-    int dx = target_pos[0] - robot_pos[0];
-    int dy = target_pos[1] - robot_pos[1];
+    int dx = target_pos[1] - robot_pos[1];
+    int dy = target_pos[0] - robot_pos[0];
 
     if (std::abs(dx) > std::abs(dy)) {
         if (dx > 0 && !blocked_directions[static_cast<int>(RIGHT)]) {
