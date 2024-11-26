@@ -5,8 +5,11 @@
 
 namespace bilu {
 
-Grid::Grid(const std::vector<std::vector<CellState>>& map) :
-    rows(static_cast<int>(map.size())), cols(static_cast<int>(map[0].size())), realMap(map) {
+Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
+    init(rows, cols);
+}
+
+void Grid::init(int rows, int cols) {
     exploredMap.resize(rows, std::vector<CellState>(cols, UNKNOWN));
 }
 
@@ -14,16 +17,9 @@ bool Grid::isValid(int x, int y) const {
     return x >= 0 && x < rows && y >= 0 && y < cols;
 }
 
-CellState Grid::getRealCellState(int x, int y) const {
+void Grid::updateExploredCell(int x, int y, CellState cell_state) {
     if (isValid(x, y)) {
-        return realMap[x][y];
-    }
-    return OBSTACLE;
-}
-
-void Grid::updateExploredCell(int x, int y) {
-    if (isValid(x, y)) {
-        exploredMap[x][y] = getRealCellState(x, y);
+        exploredMap[x][y] = cell_state;
     }
 }
 
@@ -97,6 +93,7 @@ void Grid::saveExploredMap(const std::string& filename) {
 void Grid::loadExploredMap(const std::string& filename) {
     std::ifstream inFile(filename);
     if (inFile) {
+        std::cout << "Loading explored map from " << filename << '\n';
         std::string line;
         int         row = 0;
         while (std::getline(inFile, line) && row < rows) {

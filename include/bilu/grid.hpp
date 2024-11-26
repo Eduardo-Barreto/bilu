@@ -14,22 +14,17 @@ enum CellState {
     END
 };
 
-enum Direction {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT
-};
-
 class Grid {
 public:
-    explicit Grid(const std::vector<std::vector<CellState>>& map);
+    Grid() = default;
+
+    Grid(int rows, int cols);
+
+    void init(int rows, int cols);
 
     bool isValid(int x, int y) const;
 
-    CellState getRealCellState(int x, int y) const;
-
-    void updateExploredCell(int x, int y);
+    void updateExploredCell(int x, int y, CellState cell_state);
 
     CellState getExploredCellState(int x, int y) const;
 
@@ -40,8 +35,7 @@ public:
     void loadExploredMap(const std::string& filename);
 
 private:
-    int                                 rows, cols;
-    std::vector<std::vector<CellState>> realMap;
+    int                                 rows{}, cols{};
     std::vector<std::vector<CellState>> exploredMap;
 };
 

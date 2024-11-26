@@ -12,7 +12,7 @@ public:
 
     std::vector<Node> findPath(const Node& start, const Node& end);
 
-    void exploreAndMove(Node& current, const Node& end);
+    Direction exploreAndMove(Node& current, const Node& end, const std::array<CellState, 4>& neighbors);
 
     const std::vector<std::pair<int, int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 

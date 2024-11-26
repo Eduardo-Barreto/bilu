@@ -1,13 +1,15 @@
 #include "bilu/astar.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <iostream>
 #include <queue>
 #include <unordered_map>
+#include <array>
 
 namespace bilu {
 
-AStar::AStar(Grid& grid) : grid(grid) { }
+AStar::AStar(Grid &grid) : grid(grid) {}
 
 std::vector<Node> AStar::findPath(const Node& start, const Node& end) {
     auto cmp = [](Node* left, Node* right) { return *left > *right; };
@@ -59,20 +61,31 @@ std::vector<Node> AStar::findPath(const Node& start, const Node& end) {
     return {};
 }
 
-void AStar::exploreAndMove(Node& current, const Node& end) {
-    for (const auto& [dx, dy] : directions) {
+Direction AStar::exploreAndMove(Node& current, const Node& end, const std::array<CellState, 4>& neighbors) {
+    for (uint8_t i = 0; i < 4; ++i) {
+        const auto& [dx, dy] = directions[i];
         int nx = current.x + dx;
         int ny = current.y + dy;
-        grid.updateExploredCell(nx, ny);
+
+        auto cell_state = neighbors.at(i);
+
+        grid.updateExploredCell(nx, ny, cell_state);
     }
 
     auto path = findPath(current, end);
     if (!path.empty()) {
-        current = path[1];
         grid.displayExploredMap(current.x, current.y);
-    } else {
-        std::cout << "No path found!\n";
+
+        std::cout << "Path found: ";
+        std::cout << "(" << path[0].x << ", " << path[0].y << ") ";
+        std::cout << '\n';
+
+
+        return current - path[1];
     }
+
+    std::cout << "No path found!\n";
+    return Direction::RIGHT;
 }
 
 float AStar::heuristic(const Node& a, const Node& b) {
