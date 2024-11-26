@@ -1,5 +1,6 @@
 #include "bilu/bilu_node.hpp"
 #include <chrono>
+#include <rclcpp/logging.hpp>
 #include "bilu/grid.hpp"
 
 namespace bilu {
@@ -51,7 +52,6 @@ void BiluNode::service_callback(const rclcpp::Client<cg_interfaces::srv::MoveCmd
         return;
     }
 
-    RCLCPP_INFO(this->get_logger(), "Robot moved successfully.");
     start.x = static_cast<unsigned char>(response->robot_pos[0]);
     start.y = static_cast<unsigned char>(response->robot_pos[1]);
 
@@ -64,9 +64,9 @@ void BiluNode::service_callback(const rclcpp::Client<cg_interfaces::srv::MoveCmd
     }
 
     if (start == end) {
-        RCLCPP_INFO(this->get_logger(), "Robot reached the target.");
         grid.displayExploredMap(start.x, start.y);
         grid.saveExploredMap("explored_map.csv");
+        RCLCPP_INFO(this->get_logger(), "Robot reached the target.");
         return;
     }
 
