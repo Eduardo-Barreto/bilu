@@ -1,14 +1,14 @@
 #include "bilu/explore_helper.hpp"
 #include <array>
 #include <cstdlib>
+#include "bilu/position.hpp"
 
 namespace bilu {
 Direction calculate_preferred_direction(
-    const std::array<int8_t, 2>& robot_pos, const std::array<int8_t, 2>& target_pos,
-    const std::array<bool, 4>& blocked_directions
+    const Position& robot_pos, const Position& target_pos, const std::array<bool, 4>& blocked_directions
 ) {
-    int dx = target_pos[1] - robot_pos[1];
-    int dy = target_pos[0] - robot_pos[0];
+    int dx = target_pos.x - robot_pos.x;
+    int dy = target_pos.y - robot_pos.y;
 
     if (std::abs(dx) > std::abs(dy)) {
         if (dx > 0 && !blocked_directions[static_cast<int>(RIGHT)]) {

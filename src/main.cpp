@@ -5,7 +5,7 @@ int main(int argc, char* argv[]) {
     rclcpp::init(argc, argv);
 
     // Criar uma instância do nó
-    auto node = std::make_shared<ExploreNode>();
+    auto node = std::make_shared<bilu::ExploreNode>();
 
     // Criar um executor e adicionar o nó
     rclcpp::executors::SingleThreadedExecutor executor;

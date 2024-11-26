@@ -1,20 +1,11 @@
 #ifndef BILU_EXPLORE_HELPER_HPP
 #define BILU_EXPLORE_HELPER_HPP
 
+#include "bilu/position.hpp"
 #include <array>
 #include <string>
 
 namespace bilu {
-
-/**
- * @brief Representa as direções possíveis para movimentação.
- */
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
 
 /**
  * @brief Calcula a direção preferencial para o robô se mover em direção ao alvo.
@@ -26,8 +17,7 @@ enum Direction {
  * @return Direção preferencial.
  */
 Direction calculate_preferred_direction(
-    const std::array<int8_t, 2>& robot_pos, const std::array<int8_t, 2>& target_pos,
-    const std::array<bool, 4>& blocked_directions
+    const Position& robot_pos, const Position& target_pos, const std::array<bool, 4>& blocked_directions
 );
 
 /**
