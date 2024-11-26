@@ -92,33 +92,35 @@ void Grid::saveExploredMap(const std::string& filename) {
 
 void Grid::loadExploredMap(const std::string& filename) {
     std::ifstream inFile(filename);
-    if (inFile) {
-        std::string line;
-        int         row = 0;
-        while (std::getline(inFile, line) && row < rows) {
-            size_t col = 0;
-            size_t startPos = 0;
-            size_t endPos = line.find(", ");
-            while (endPos != std::string::npos && static_cast<int>(col) < cols) {
-                std::string cell = line.substr(startPos, endPos - startPos);
-                if (cell == "?") {
-                    exploredMap[row][col] = UNKNOWN;
-                } else if (cell == ".") {
-                    exploredMap[row][col] = FREE;
-                } else if (cell == "#") {
-                    exploredMap[row][col] = OBSTACLE;
-                } else if (cell == "R") {
-                    exploredMap[row][col] = START;
-                } else if (cell == "E") {
-                    exploredMap[row][col] = END;
-                }
+    if (!inFile) {
+        return;
+    }
 
-                startPos = endPos + 2;
-                endPos = line.find(", ", startPos);
-                ++col;
+    std::string line;
+    int         row = 0;
+    while (std::getline(inFile, line) && row < rows) {
+        size_t col = 0;
+        size_t startPos = 0;
+        size_t endPos = line.find(", ");
+        while (endPos != std::string::npos && static_cast<int>(col) < cols) {
+            std::string cell = line.substr(startPos, endPos - startPos);
+            if (cell == "?") {
+                exploredMap[row][col] = UNKNOWN;
+            } else if (cell == ".") {
+                exploredMap[row][col] = FREE;
+            } else if (cell == "#") {
+                exploredMap[row][col] = OBSTACLE;
+            } else if (cell == "R") {
+                exploredMap[row][col] = START;
+            } else if (cell == "E") {
+                exploredMap[row][col] = END;
             }
-            ++row;
+
+            startPos = endPos + 2;
+            endPos = line.find(", ", startPos);
+            ++col;
         }
+        ++row;
     }
 }
 
