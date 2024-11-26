@@ -84,7 +84,6 @@ void BiluNode::service_callback(const rclcpp::Client<cg_interfaces::srv::MoveCmd
 }
 
 CellState BiluNode::convertToCellState(const std::string& cell) {
-    std::cout << cell << std::endl;
     return cell == "b" ? CellState::OBSTACLE : CellState::FREE;
 }
 

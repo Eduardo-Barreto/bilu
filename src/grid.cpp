@@ -93,7 +93,6 @@ void Grid::saveExploredMap(const std::string& filename) {
 void Grid::loadExploredMap(const std::string& filename) {
     std::ifstream inFile(filename);
     if (inFile) {
-        std::cout << "Loading explored map from " << filename << '\n';
         std::string line;
         int         row = 0;
         while (std::getline(inFile, line) && row < rows) {

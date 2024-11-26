@@ -76,15 +76,9 @@ Direction AStar::exploreAndMove(Node& current, const Node& end, const std::array
     if (!path.empty()) {
         grid.displayExploredMap(current.x, current.y);
 
-        std::cout << "Path found: ";
-        std::cout << "(" << path[0].x << ", " << path[0].y << ") ";
-        std::cout << '\n';
-
-
         return current - path[1];
     }
 
-    std::cout << "No path found!\n";
     return Direction::RIGHT;
 }
 
