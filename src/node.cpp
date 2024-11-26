@@ -21,4 +21,12 @@ bool Node::operator!=(const Node& other) const {
     return !(*this == other);
 }
 
+Direction Node::operator-(const Node& other) const {
+    if (y == other.y) {
+        return x > other.x ? UP : DOWN;
+    }
+
+    return y > other.y ? LEFT : RIGHT;
+}
+
 }  // namespace bilu
